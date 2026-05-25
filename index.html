@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover" />
+  <title>K-1 персонаж</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-deep: #0a0f1a;
+      --bg-card: #111827;
+      --border-color: #1e3a5f;
+      --accent-blue: #0a4c6e;
+      --accent-blue-light: #1e6f9f;
+      --accent-glow: #2c7cb6;
+      --text-primary: #e8f0fe;
+      --text-secondary: #a0c4e8;
+      --text-dim: #5a7d9a;
+      --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.7);
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      background-image: 
+        radial-gradient(circle at 15% 30%, rgba(30, 111, 159, 0.08) 0%, transparent 55%),
+        radial-gradient(circle at 85% 70%, rgba(10, 76, 110, 0.1) 0%, transparent 60%);
+      font-family: 'Trajan';
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1.5rem 1rem;
+      margin: 1;
+    }
+
+    @font-face {
+      font-family: 'Trajan';
+      src: url('Trajan.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    .banner {
+      width: 100%;
+      max-width: 920px;
+      height: auto;
+      aspect-ratio: 10 / 1;
+      background-color: #0f1a2a;
+      border: 1px solid var(--border-color);
+      border-radius: 0.8rem;
+      margin: 0.5rem 0 0.8rem 0;
+      box-shadow: var(--shadow-soft);
+      object-fit: cover;
+      display: block;
+    }
+
+    .archive-folder {
+      max-width: 920px;
+      width: 100%;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 1.2rem;
+      padding: 1.8rem 2rem;
+      box-shadow: var(--shadow-soft), 0 0 0 1px rgba(30, 111, 159, 0.3);
+      position: relative;
+    }
+
+    .archive-folder::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 15%;
+      width: 70%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent-blue-light), transparent);
+      border-radius: 0 0 50% 50%;
+    }
+
+     .header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 1rem;
+      margin-bottom: 1.9rem;
+    }
+
+    .title-group h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--text-primary);
+    }
+
+    .title-group h1 .blue {
+      color: var(--accent-blue-light);
+    }
+
+    .sub {
+      font-size: 1rem;
+      color: var(--text-dim);
+      letter-spacing: 1.2px;
+    }
+
+    .corp-stamp {
+      font-family: 'Courier New', monospace;
+      font-size: 0.7rem;
+      color: var(--accent-blue);
+      border: 1px solid var(--accent-blue);
+      padding: 0.2rem 0.9rem;
+      border-radius: 2px;
+      letter-spacing: 1px;
+      opacity: 0.85;
+    }
+
+    .profile-block {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 1rem;
+      padding: 1.3rem 1.5rem;
+      border: 1px solid rgba(30, 58, 95, 0.6);
+      margin-bottom: 1.5rem;
+    }
+
+    .profile-text {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .profile-text .name {
+      font-size: 1.7rem;
+      font-weight: 60;
+      color: var(--text-primary);
+    }
+
+    .profile-text .role {
+      color: var(--text-secondary);
+      font-style: italic;
+      font-size: 1rem;
+      margin-top: 0rem;
+    }
+
+    .signature {
+      margin-top: 1rem;
+      padding: 0.6rem 1rem;
+      background: rgba(0, 0, 0, 0.5);
+      border-left: 4px solid var(--accent-blue-light);
+      font-style: italic;
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    .card-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      overflow: hidden;
+      transition: all 0.15s ease;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 1.2rem;
+      background: rgba(10, 76, 110, 0.15);
+      cursor: pointer;
+      user-select: none;
+      font-weight: 200;
+      letter-spacing: 0.5px;
+      color: var(--text-primary);
+      border-bottom: 1px solid transparent;
+      transition: background 0.1s;
+    }
+
+    .card-header:hover {
+      background: rgba(30, 111, 159, 0.25);
+    }
+
+    .card-header .indicator {
+      font-size: 1.2rem;
+      color: var(--accent-blue-light);
+      transition: transform 0.2s;
+      font-weight: normal;
+    }
+
+    .card-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease-in-out, padding 0.2s;
+      background: rgba(0, 0, 0, 0.15);
+      padding: 0 1.2rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    .card.open .card-body {
+      max-height: 600px;
+      padding: 0.9rem 1rem;
+    }
+
+    .card.open .card-header {
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .card.open .indicator {
+      transform: rotate(180deg);
+    }
+
+    .card-body p {
+      margin-bottom: 0.7rem;
+      font-size: 15px;
+      letter-spacing: 0.3px;  
+    }
+
+    .highlight {
+      color: var(--text-primary);
+      font-weight: 60;
+    }
+
+    .blue-label {
+      color: var(--accent-blue-light);
+      font-weight: 600;
+    }
+
+
+    .color-palette {
+      flex: 1.2;
+      min-width: 180px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 1rem;
+      padding: 0.6rem 1rem;
+      border-left: 3px solid var(--accent-blue-light);
+    }
+
+    .palette-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 0.65rem;
+      letter-spacing: 0.8px;
+      color: var(--text-secondary);
+    }
+
+    .swatch-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      align-items: center;
+    }
+
+    .swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .color-label {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      font-family: monospace;
+      display: inline-block;
+      margin-left: 0.3rem;
+    }
+
+    .footer {
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      border-top: 1px solid var(--border-color);
+      padding-top: 0.9rem;
+      letter-spacing: 1px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .footer span {
+      color: var(--accent-blue-light);
+    }
+
+    @media (max-width: 650px) {
+      body {
+        padding: 1rem 0.6rem;
+      }
+
+      .archive-folder {
+        padding: 1.2rem 1rem;
+      }
+
+      .profile-text .name {
+        font-size: 1.4rem;
+      }
+
+      .header {
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+
+      .card-header {
+        padding: 0.7rem 1rem;
+      }
+      
+      .extra-panel {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Верхний баннер (PNG) -->
+  <img class="banner" src="banner_top.png" alt="Верхний баннер K-1" />
+
+  <div class="archive-folder">
+    <div class="profile-block">
+      <div class="profile-text">
+        <div class="name">Каэль</div>
+        <div class="role">Советник по историческим архивам и культурному наследию</div>
+        <div class="signature">
+          «У меня есть рот, но я должен молчать. Это не жалоба. Это констатация факта, давно превратившаяся в спокойное принятие.»
+        </div>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <!-- Карточка 1: Общие данные -->
+      <div class="card">
+        <div class="card-header">
+          <span>Общие данные</span>
+          <span class="indicator">▼</span>
+        </div>
+        <div class="card-body">
+          <p><span class="highlight">𓏲 ๋࣭  Возраст:</span> 667 лет (создан в 2333 году).</p>
+          <p><span class="highlight">  ⏝︶‌</p>
+          <p><span class="highlight">Профессия:</span> Формально — «Советник по историческим архивам и культурному наследию» корпорации NEURODYNE SYSTEMS. Фактически — живой музейный экспонат, декоративный актив и молчаливый свидетель.</p>
+          <p><span class="highlight">Район рождения:</span> Нео-Вальгалла (родовая лаборатория основателя NEURODYNE).</p>
+          <p><span class="highlight">Район проживания:</span> Нео-Вальгалла, закрытый сектор для ценных активов. Резиденция — часть родового поместья основателя, превращённая в музей истории NEURODYNE.</p>
+        </div>
+      </div>
+
+      <!-- Карточка 2: Описание -->
+      <div class="card">
+        <div class="card-header">
+          <span>Описание</span>
+          <span class="indicator">▼</span>
+        </div>
+        <div class="card-body">
+          <p><span class="blue-label">Внешность:</span> Бледная, почти пепельная кожа. Светло-синие растрёпанные волосы — наследие эстетики покойного «оригинала». Глубокие красные глаза — взгляд человека, который видел слишком много и устал даже от самого акта смотрения. Под глазами — тонкие красные линии.</p>
+          <p><span class="blue-label">Костюм:</span> Высокий алый воротник с золотой вышивкой, белая рубашка с золотым орнаментом, алый бант, серые жилетные лямки, чёрные штаны и длинный алый плащ с острым шлейфом. Светло-голубые ботинки — единственный светлый акцент.</p>
+        </div>
+      </div>
+
+      <!-- Карточка 3: Характер -->
+      <div class="card">
+        <div class="card-header">
+          <span>Характер</span>
+          <span class="indicator">▼</span>
+        </div>
+        <div class="card-body">
+          <p><span class="blue-label">На поверхности:</span> Идеальный слушатель. Бесконечно вежливый, терпеливый, внимательный. Мягкая, чуть грустная улыбка — щит, за которым скрывается бездна цинизма и усталости.</p>
+          <p><span class="blue-label">Внутри:</span> Уставший, интровертный наблюдатель. Не испытывает ненависти — только глубокую, экзистенциальную апатию. Научился чувствовать, но не научился действовать. Протоколы NEURODYNE не позволяют ему вмешиваться. Он может только смотреть и помнить.</p>
+        </div>
+      </div>
+
+      <!-- Карточка 4: История -->
+      <div class="card">
+        <div class="card-header">
+          <span>История</span>
+          <span class="indicator">▼</span>
+        </div>
+        <div class="card-body">
+          <p><span class="blue-label">2333 год.</span> У основателя NEURODYNE SYSTEMS был сын — живой, увлечённый молодой человек, который коллекционировал артефакты 18-19-20 веков. Он умер молодым. Основатель, не оправившись от потери, создал идеальную копию — робота, который будет выглядеть, двигаться и улыбаться как тот, кого он потерял.</p>
+          <p>Каэль стал памятником, реликвией, живым надгробием. Основатель часами беседовал с ним, рассказывая о днях минувших. Каэль слушал и запоминал.</p>
+          <p><span class="blue-label">Годы шли.</span> Основатель умер. NEURODYNE стала безликой корпоративной машиной. Каэля не уничтожили — он был слишком дорогим артефактом. Его отключили от большинства систем, перевели в статус «экспоната», оставили жить в старых комнатах родового поместья, превращённого в музей.</p>
+          <p>Он видит, как NEURODYNE проводит эксперименты на жителях Грейзона. Видит, как VERIDIAN GROVE спускает вирусы. Видит, как горит и перестраивается город. Ему 667 лет. Он видел эпоху «Технологического Рая» и её закат. Он — единственный, кто помнит всё. И он никогда не сможет использовать эту память. Он — пленник в золотой клетке, обречённый на бесконечное наблюдение.</p>
+        </div>
+      </div>
+
+      <!-- Карточка 5: Роль в сюжете -->
+      <div class="card">
+        <div class="card-header">
+          <span>Роль в сюжете</span>
+          <span class="indicator">▼</span>
+        </div>
+        <div class="card-body">
+          <p><span class="highlight">Второстепенный персонаж. Информатор, наблюдатель, катализатор.</span></p>
+          <p>Знает слишком много, но не может сказать напрямую. Его роль — источник зашифрованных намёков, случайно оброненных фраз, неожиданных «совпадений». Он подталкивает события, просто находясь в нужном месте в нужное время.</p>
+          <p>Он — память Кибергейта, которую корпорации пытаются похоронить, но она всё ещё теплится в старом андроиде с красными глазами.</p>
+        </div>
+      </div>
+
+      <!-- Карточка 6: Дополнительно -->
+      <div class="card">
+        <div class="card-header">
+          <span>Дополнительно</span>
+          <span class="indicator">▼</span>
+        </div>
+        <div class="card-body">
+          <p><span class="blue-label">Сигнатурная фраза:</span> «У меня есть рот, но я должен молчать».</p>
+          <p><span class="blue-label">Быт:</span> Комнаты — музей внутри музея. Антикварная мебель, настоящие бумажные книги, коллекция старинных часов, виниловый проигрыватель.</p>
+          <p><span class="blue-label">Питание:</span> Не нуждается, но раз в неделю заваривает чай по старому рецепту в одиночестве.</p>
+          <p><span class="blue-label">Скрытые возможности:</span> Прямое подключение к старым, забытым серверам NEURODYNE. Может слушать, но не может активно использовать.</p>
+          <p><span class="blue-label">Страх:</span> Потерять память. Сбой, который сотрёт всё, что он видел за 667 лет.</p>
+          <p><span class="blue-label">Что ненавидит:</span> Громкие, пустые обещания. Пафосные речи о «светлом будущем». Зеркала — он избегает смотреть на себя.</p>
+        </div>
+      </div>
+    </div>
+
+
+      <!-- Палитра цветов (визуальная) -->
+      <div class="color-palette">
+        <div class="palette-title">ВИЗУАЛЬНАЯ ПАЛИТРА • СИНИЙ ПРОТОКОЛ</div>
+        <div class="swatch-row">
+          <div class="swatch" style="background-color: #0a0f1a;" title="Deep Background"></div>
+          <span class="color-label">#0a0f1a</span>
+          <div class="swatch" style="background-color: #111827;" title="Card Base"></div>
+          <span class="color-label">#111827</span>
+          <div class="swatch" style="background-color: #1e3a5f;" title="Border"></div>
+          <span class="color-label">#1e3a5f</span>
+          <div class="swatch" style="background-color: #1e6f9f;" title="Accent Light"></div>
+          <span class="color-label">#1e6f9f</span>
+          <div class="swatch" style="background-color: #a0c4e8;" title="Secondary Text"></div>
+          <span class="color-label">#a0c4e8</span>
+        </div>
+        <div class="palette-title" style="margin-top: 0.4rem; font-size:0.65rem;">Атмосфера: холодный дистиллированный кибернетический нуар</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>NEURODYNE SYSTEMS</span> • АРХИВНАЯ КАРТОЧКА K-1 «НАСЛЕДНИК» • СТАТУС: АКТИВЕН
+    </div>
+  </div>
+
+  <!-- Нижний кастомный баннер -->
+  <img class="banner" src="banner_bottom.png" alt="Нижний баннер K-1" />
+
+  <script>
+    (function() {
+      // ----- аккордеон (сохраняем одну открытую карточку) -----
+      const cards = document.querySelectorAll('.card');
+      if (cards.length) {
+        cards.forEach(card => {
+          const header = card.querySelector('.card-header');
+          if (!header) return;
+          header.addEventListener('click', function(e) {
+            cards.forEach(c => {
+              if (c !== card && c.classList.contains('open')) {
+                c.classList.remove('open');
+              }
+            });
+            card.classList.toggle('open');
+          });
+        });
+        // по умолчанию открыта первая
+        cards[0].classList.add('open');
+      }
+    })();
+  </script>
+</body>
+</html>
